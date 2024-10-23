@@ -1,6 +1,7 @@
 package net.codejava;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class AppController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
+        
         return "signup_form";
     }
     
@@ -30,20 +32,26 @@ public class AppController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        
+
+        user.setRole("USER");  // Ensure the default role is set
+        user.setEnabled(true);  // Set user as enabled by default
+
         userRepo.save(user);
+    
         return "register_success";
     }
+
     
     @GetMapping("/users")
     public String listUsers(Model model) {
         List<User> listUsers = userRepo.findAll();
         model.addAttribute("listUsers", listUsers);
+        
         return "users";
     }
-
-    @GetMapping("/welcome")  // Nueva ruta para la página de bienvenida
-    public String welcomePage() {
-        return "welcome";  // Mapea a welcome.html
+    
+    @GetMapping("/welcome")
+    public String showWelcomePage() {
+        return "welcome";  // Redirige a la página welcome.html tras login exitoso
     }
 }
