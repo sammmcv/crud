@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Registration Success</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+	<div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+		<h1 class="text-center">You have signed up successfully!</h1>
+		<div class="mt4">
+		<h4><a th:href="@{/login}" class="btn btn-custom rounded-pill mx-2 btnlg mb-3">Click here to Login</a></h4>
+		<h4><a th:href="@{/welcome}" class="btn btn-custom rounded-pill mx-2 btnlg mb-3">Go to Welcome Page</a></h4> <!-- Añadido enlace a welcome -->
+		</div>
+		
+	</div>
+</body>
+</html>

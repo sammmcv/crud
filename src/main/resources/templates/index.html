@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Welcome to CodeJava Home</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+        <h1 class="text-center">Welcome to CodeJava.net</h1>
+        <img src="/images/logogenerado.jpg" alt="Imagen descriptiva" class="rounded-circle mt-3 img-custom" width="150" height="150"> 
+        <div class="mt-4">
+            <h3><a th:href="@{/register}" class="btn btn-custom rounded-pill mx-2 btnlg mb-3">Register</a></h3>
+            <h3><a th:href="@{/login}" class="btn btn-custom rounded-pill mx-2  btnlg">Login</a></h3>
+        </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+
+body{
+    background:#afcca7;
+  }
+  h1{
+    font-size: 3rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    border-bottom: 3px solid #32334a;
+    transition: color 0.5s;
+  }
+  h1:hover{
+    color: #fff;
+  }
+  .img-custom{
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  .btnlg{
+    width: 550px;
+    padding: 12px 20px;
+  }
+  .btn-custom {
+    background-color:  #32334a; 
+    color:  #afcca7;              
+    border: none;              
+}
+.btn-custom:hover {
+    background-color:  #afcca7;
+    border: 2px solid #32334a ; /* Color de fondo al pasar el mouse */
+}
+
+label{
+    font-size:1.3rem;
+    color:#32334a;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s;
+    font-weight: bold;
+}
+label:hover {
+    color: #fff; /* Color al pasar el mouse */
+}
+.inpt-lg{
+  width: 350px;
+}
+p{
+  font-size: 1.3rem;
+}

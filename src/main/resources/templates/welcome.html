@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+        <!-- Mostrar nombre completo y correo -->
+        <h1 class="text-center">Welcome, <b th:text="${fullName}">User</b>!</h1>
+        <p>Your email: <b th:text="${email}">example@example.com</b></p>
+
+        <!-- Mostrar mensaje para usuarios regulares -->
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <p>Usuario: Solo puede visualizar su información personal en una página de perfil, sin permisos para modificar ni eliminar registros. Este tipo de usuario solo puede realizar operaciones de lectura.</p>
+        </div>
+
+        <!-- Mostrar mensaje para administradores -->
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            
+            <p>Administrador: Tiene acceso completo para gestionar los usuarios y realizar operaciones CRUD sobre la base de datos.</p>
+            <div class="d-flex justify-content-center">
+                <h3><a th:href="@{/users}" class="btn btn-custom rounded-pill mx-2  btnlg mt-4">Ir a la gestión de usuarios</a></h3>
+            </div>
+            
+        </div>
+
+        <!-- Botón de Logout -->
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-danger  rounded-pill mx-2 btnlg mb-3" value="Logout" />
+        </form>
+    </div>
+</body>
+</html>

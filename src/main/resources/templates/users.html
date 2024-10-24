@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title>List Users</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script type="text/javascript">
+        // Confirmar antes de eliminar un usuario con AJAX
+        function confirmDelete(userId) {
+            console.log("Intentando eliminar el usuario con ID: " + userId);  // Añade esta línea para verificar el ID
+
+            if (confirm('Are you sure you want to delete this user?')) {
+                var csrfToken = $("meta[name='_csrf']").attr("content");
+                var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+                $.ajax({
+                    url: '/deleteUser/' + userId,
+                    type: 'DELETE',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);  // Agregar el token CSRF a la solicitud
+                    },
+                    success: function(result) {
+                        console.log("Usuario eliminado exitosamente: " + userId);
+                        $('#user-row-' + userId).remove();  // Remover la fila de la tabla
+                    },
+                    error: function(err) {
+                        console.error('Error al eliminar el usuario con ID: ' + userId, err);
+                        alert('Error al eliminar el usuario');
+                    }
+                });
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <p>
+                Welcome <b th:text="${fullName}">User</b>
+            </p>
+            <input type="submit" value="Sign Out" class="btn btn-custom rounded-pill mx-2 btn-lg mb-4" />
+        </form>
+    </div>
+    <div>
+        <h1>List of Users</h1>
+    </div>
+    
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>E-mail</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${listUsers}" id="user-row-[[${user.id}]]">
+                    <td th:text="${user.id}">User ID</td>
+                    <td th:text="${user.email}">E-mail</td>
+                    <td th:text="${user.firstName}">First Name</td>
+                    <td th:text="${user.lastName}">Last Name</td>
+                    <td th:text="${user.role}">Role</td>
+                    
+                    <!-- Mostrar opciones de editar/eliminar solo si el usuario tiene rol ADMIN -->
+                    <td>
+                        <div sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/editUser/{id}(id=${user.id})}" class="btn btn-primary">Editar</a>
+                            <!-- Botón de eliminación con confirmación AJAX -->
+                            <a th:href="@{/deleteUser/{id}(id=${user.id})}" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
