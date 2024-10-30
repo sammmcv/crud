@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Confirm Delete User</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Delete User</h2>
+
+        <!-- Formulario para confirmar la eliminación del usuario -->
+        <form th:action="@{/deleteUser/{id}(id=${user.id})}" method="post">
+            <input type="hidden" name="id_usuario" th:value="${user.id}" />
+
+            <div class="form-group">
+                <label for="nombres">Name</label>
+                <input type="text" id="nombres" class="form-control" th:value="${user.firstName}" disabled />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" class="form-control" th:value="${user.email}" disabled />
+            </div>
+
+            <a href="/users" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</body>
+</html>

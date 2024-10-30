@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="ISO-8859-1">
     <title>Welcome Page</title>
@@ -9,10 +10,24 @@
 </head>
 <body>
     <div class="container text-center">
-        <h1>Welcome!</h1>
-        <p>Hello, welcome to the application!</p>
+        <!-- Mostrar nombre completo y correo -->
+        <h1>Welcome, <b th:text="${fullName}">User</b>!</h1>
+        <p>Your email: <b th:text="${email}">example@example.com</b></p>
+
+        <!-- Mostrar mensaje para usuarios regulares -->
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <p>Usuario: Solo puede visualizar su información personal en una página de perfil, sin permisos para modificar ni eliminar registros. Este tipo de usuario solo puede realizar operaciones de lectura.</p>
+        </div>
+
+        <!-- Mostrar mensaje para administradores -->
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <p>Administrador: Tiene acceso completo para gestionar los usuarios y realizar operaciones CRUD sobre la base de datos.</p>
+            <h3><a th:href="@{/users}">Ir a la gestión de usuarios</a></h3>
+        </div>
+
+        <!-- Botón de Logout -->
         <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-primary">Logout</button>
+            <input type="submit" class="btn btn-danger" value="Logout" />
         </form>
     </div>
 </body>
