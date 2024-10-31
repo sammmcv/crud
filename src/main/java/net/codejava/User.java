@@ -1,3 +1,4 @@
+// con esta clase podemos almacenar y obtener informacion de los usuarios en la base de datos
 package net.codejava;
 
 import javax.persistence.*;
@@ -6,8 +7,8 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //declaraciones
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // la base de datos genera automaticamente este valor
     private Long id;
 
     @Column(nullable = false, unique = true, length = 45)
@@ -25,14 +26,14 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    @Column(nullable = false, length = 10)  // New column for role
+    @Column(nullable = false, length = 10)
     private String role;
 
     public User() {
-        this.role = "USER"; // Default role for new users
-        this.enabled = true;  // Default to enabled
+        this.role = "USER"; // USER como default
+        this.enabled = true;  // esta habilitado por default
     }
-    // Getters y setters
+    // Getters y setters de aqui hasta abajo
     public Long getId() {
         return id;
     }

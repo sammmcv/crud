@@ -1,3 +1,4 @@
+// podemos cargar al user desde la bd a traves de userrepository
 package net.codejava;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username);
+        User user = userRepo.findByEmail(username); // busqueda mediante correo, que no se puede repetir
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

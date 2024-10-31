@@ -1,3 +1,4 @@
+// establecemos la seguridad implementada en la aplicacion, roles, autorizaciones e inicio de sesion.
 package net.codejava;
 
 //import javax.sql.DataSource;
@@ -13,36 +14,36 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity // usamos websecurity de spring
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //@Autowired
     //private DataSource dataSource;
 
-    @Bean
+    @Bean // con esto podemos trabajar con roles y credenciales
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
     }
 
-    @Bean
+    @Bean // definicion del codificador
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    @Bean // autenticacion de los usuarios al iniciar sesion
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(); // autenticador
+        authProvider.setUserDetailsService(userDetailsService()); // detalles del usuario
+        authProvider.setPasswordEncoder(passwordEncoder()); // codificador
         return authProvider;
     }
 
-    @Override
+    @Override // para usar el authprovider de arriba
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    @Override
+    @Override // permisos de entrada y redirecciones
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()

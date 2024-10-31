@@ -1,3 +1,4 @@
+// .java principal, run y debug aqui (mvn spring-boot:run)
 package net.codejava;
 
 import org.springframework.boot.SpringApplication;
