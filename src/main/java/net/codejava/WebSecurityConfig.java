@@ -56,9 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
                 .loginPage("/login")
-                .usernameParameter("username")  // Ensure it matches your form field
-                .passwordParameter("password")  // Ensure it matches your form field
-                .defaultSuccessUrl("/welcome", true)  // Redirect to welcome page on successful login
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/welcome", true)
                 .permitAll()
             .and()
             .logout().logoutSuccessUrl("/").permitAll();
