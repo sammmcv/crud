@@ -9,8 +9,8 @@
     <div class="container">
         <h2>Edit User</h2>
 
-        <!-- Formulario para editar los datos del usuario -->
-        <form th:action="@{/editUser/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <!-- Formulario para editar los datos del usuario, incluyendo la foto -->
+        <form th:action="@{/editUser/{id}(id=${user.id})}" th:object="${user}" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" id="firstName" class="form-control" th:field="*{firstName}" required />
@@ -24,6 +24,16 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" class="form-control" th:field="*{email}" required />
+            </div>
+
+            <div class="form-group">
+                <label>Current Profile Picture:</label><br>
+                <img th:src="'data:image/jpeg;base64,' + ${photoBase64}" alt="Profile Photo" class="img-thumbnail" width="150" height="150" />
+            </div>
+
+            <div class="form-group">
+                <label for="profilePicture">Upload New Profile Picture:</label>
+                <input type="file" id="profilePicture" name="profilePicture" class="form-control" accept="image/*" />
             </div>
 
             <a href="/users" class="btn btn-secondary">Cancel</a>

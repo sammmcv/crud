@@ -58,6 +58,7 @@
                     <th>E-mail</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Foto</th>
                     <th>Role</th>
                     <th>Actions</th>
                 </tr>
@@ -68,6 +69,10 @@
                     <td th:text="${user.email}">E-mail</td>
                     <td th:text="${user.firstName}">First Name</td>
                     <td th:text="${user.lastName}">Last Name</td>
+                    <!-- Columna de foto con imagen en formato base64 -->
+                    <td>
+                        <img th:src="'data:image/jpeg;base64,' + ${user.photoBase64}" alt="Profile Photo" class="img-thumbnail" width="50" height="50" />
+                    </td>
                     <td>
                         <form th:action="@{/updateUserRole/{id}(id=${user.id})}" method="post">
                             <select name="role" id="user-role-[[${user.id}]]" class="form-control">
@@ -77,15 +82,20 @@
                             <!-- Aceptar button to submit the form -->
                             <button type="submit" class="btn btn-success">Aceptar</button>
                         </form>
-                    </td>                    
+                    </td>
                     <!-- Mostrar opciones de editar/eliminar solo si el usuario tiene rol ADMIN -->
                     <td>
                         <div sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/editUser/{id}(id=${user.id})}" class="btn btn-primary">Editar</a>
-                            <!-- Botón de eliminación con confirmación AJAX -->
-                            <a href="#" th:onclick="'confirmDelete(' + ${user.id} + ')'" class="btn btn-danger">Eliminar</a>
+                    
+                            <!-- Formulario para eliminar usuario -->
+                            <form th:action="@{/deleteUser/{id}(id=${user.id})}" method="post" style="display:inline;">
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Eliminar</button>
+                            </form>
                         </div>
                     </td>
+                    
                 </tr>
             </tbody>
         </table>

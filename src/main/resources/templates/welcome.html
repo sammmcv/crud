@@ -14,19 +14,33 @@
         <h1>Welcome, <b th:text="${fullName}">User</b>!</h1>
         <p>Your email: <b th:text="${email}">example@example.com</b></p>
 
+        <!-- Mostrar la imagen de perfil -->
+        <img th:src="'data:image/jpeg;base64,' + ${photoBase64}" alt="Profile Photo" class="img-thumbnail" width="150" height="150" />
+
+        <!-- Formulario para actualizar la foto de perfil -->
+        <form th:action="@{/update_photo}" method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+            <div class="form-group">
+                <label for="profilePicture">Actualizar Foto de Perfil:</label>
+                <input type="file" name="profilePicture" class="form-control-file" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Foto</button>
+        </form>
+
         <!-- Mostrar mensaje para usuarios regulares -->
-        <div sec:authorize="hasRole('ROLE_USER')">
+        <div sec:authorize="hasRole('ROLE_USER')" style="margin-top: 20px;">
             <p>Usuario: Solo puede visualizar su información personal en una página de perfil, sin permisos para modificar ni eliminar registros. Este tipo de usuario solo puede realizar operaciones de lectura.</p>
         </div>
 
-        <!-- Mostrar mensaje para administradores -->
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <!-- mensaje para administradores -->
+        <div sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 20px;">
             <p>Administrador: Tiene acceso completo para gestionar los usuarios y realizar operaciones CRUD sobre la base de datos.</p>
             <h3><a th:href="@{/users}">Ir a la gestión de usuarios</a></h3>
+            <!-- consumir la API y mostrar la vista api_view.html -->
+            <h3><a th:href="@{/consumeApi}">API OMDB</a></h3>
         </div>
 
-        <!-- Botón de Logout -->
-        <form th:action="@{/logout}" method="post">
+        <!-- logout -->
+        <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
             <input type="submit" class="btn btn-danger" value="Logout" />
         </form>
     </div>

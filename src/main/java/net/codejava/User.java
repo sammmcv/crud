@@ -33,7 +33,32 @@ public class User {
         this.role = "USER"; // USER como default
         this.enabled = true;  // esta habilitado por default
     }
+
+    @Lob // indica que es un campo de gran tamaño
+    @Column(name = "photo")
+    private byte[] photo; // almacena la imagen en binario
+
+    @Transient
+    private String photoBase64; // Campo temporal para base64
+
     // Getters y setters de aqui hasta abajo
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public String getPhotoBase64() {
+        return photoBase64;
+    }
+
+    public void setPhotoBase64(String photoBase64) {
+        this.photoBase64 = photoBase64;
+    }
+
     public Long getId() {
         return id;
     }
@@ -89,4 +114,6 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buscar Películas</title>
+</head>
+<body>
+    <h1>Buscar Película</h1>
+
+    <!-- busqueda -->
+    <form th:action="@{/api}" method="get">
+        <label for="title">Título de la película:</label>
+        <input type="text" id="title" name="title" required placeholder="Ej. Inception">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <hr>
+
+    <!-- detalles de la película si están disponibles -->
+    <div th:if="${movieData != null}">
+        <h2>Resultados de la búsqueda</h2>
+        
+        <div th:each="movie : ${movieData}">
+            <p><strong>Título:</strong>
+                <a th:href="@{/movie/details/{id}(id=${movie['imdbID']})}" th:text="${movie['Title']}">Título de la película</a>
+            </p>
+            <p><strong>Año:</strong> <span th:text="${movie['Year']}">Año</span></p>
+            <p><strong>IMDb ID:</strong> <span th:text="${movie['imdbID']}">ID de IMDb</span></p>
+            <p><strong>Póster:</strong> <img th:src="${movie['Poster']}" alt="Póster de la película"></p>
+            <hr>
+        </div>
+    </div>
+</body>
+</html>

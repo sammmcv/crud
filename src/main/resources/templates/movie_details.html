@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles de la Película</title>
+</head>
+<body>
+    <h1 th:text="${movieDetails['Title']}">Título de la película</h1>
+    <p><strong>Año:</strong> <span th:text="${movieDetails['Year']}">Año</span></p>
+    <p><strong>Director:</strong> <span th:text="${movieDetails['Director']}">Director</span></p>
+    <p><strong>Género:</strong> <span th:text="${movieDetails['Genre']}">Género</span></p>
+    <p><strong>Resumen:</strong> <span th:text="${movieDetails['Plot']}">Resumen de la película</span></p>
+    <p><strong>Póster:</strong> <img th:src="${movieDetails['Poster']}" alt="Póster de la película"></p>
+</body>
+</html>
