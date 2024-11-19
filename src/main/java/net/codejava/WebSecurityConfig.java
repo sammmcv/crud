@@ -63,10 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/consumeApi").authenticated()
                 .antMatchers("/movie/**").hasRole("ADMIN")
                 .antMatchers("/editUser/**").hasRole("ADMIN")
+                .antMatchers("/login").permitAll()
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
                 .loginPage("/login")
+                .failureUrl("/login?error=true")//contraseña incorrecta
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/welcome", true)
