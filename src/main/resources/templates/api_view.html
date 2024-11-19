@@ -1,33 +1,37 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Buscar Películas</title>
+    <title >Buscar Peliculas</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-    <h1>Buscar Película</h1>
+    <h1 style="margin-right: 20px; margin-left: 20px;">Buscar Pelicula</h1>
 
-    <!-- busqueda -->
+    <!-- formulario de busqueda -->
     <form th:action="@{/api}" method="get">
-        <label for="title">Título de la película:</label>
+        <label for="title" style="margin-right: 20px; margin-left: 20px;">Titulo de la pelicula:</label>
         <input type="text" id="title" name="title" required placeholder="Ej. Inception">
         <button type="submit">Buscar</button>
     </form>
 
     <hr>
 
-    <!-- detalles de la película si están disponibles -->
+    <!-- detalles de la pelicula -->
     <div th:if="${movieData != null}">
-        <h2>Resultados de la búsqueda</h2>
+        <h2 style="margin-right: 20px; margin-left: 20px;">Resultados de la busqueda</h2>
         
-        <div th:each="movie : ${movieData}">
-            <p><strong>Título:</strong>
-                <a th:href="@{/movie/details/{id}(id=${movie['imdbID']})}" th:text="${movie['Title']}">Título de la película</a>
-            </p>
-            <p><strong>Año:</strong> <span th:text="${movie['Year']}">Año</span></p>
-            <p><strong>IMDb ID:</strong> <span th:text="${movie['imdbID']}">ID de IMDb</span></p>
-            <p><strong>Póster:</strong> <img th:src="${movie['Poster']}" alt="Póster de la película"></p>
-            <hr>
+        <div th:each="movie : ${movieData}" style="display: flex; align-items: center; margin-bottom: 20px;"> <!-- Espacio entre resultados -->
+            <img th:src="${movie['Poster']}" alt="Poster de la película" style="width: 100px; margin-right: 20px; margin-left: 20px;">
+            
+            <div>
+                <p><strong>Titulo:</strong>
+                    <a th:href="@{/movie/details/{id}(id=${movie['imdbID']})}" th:text="${movie['Title']}">Titulo de la pelicula</a>
+                </p>
+                <p><strong>Año:</strong> <span th:text="${movie['Year']}">Año</span></p>
+                <p><strong>IMDb ID:</strong> <span th:text="${movie['imdbID']}">ID de IMDb</span></p>
+            </div>
         </div>
+        <hr>
     </div>
 </body>
 </html>
